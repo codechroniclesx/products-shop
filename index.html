@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بورشين - مستحضرات العناية بالبشرة العضوية</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+    <style>
+        :root {
+            --soft-green: #e8f5e9;
+            --earth-green: #a5d6a7;
+            --dark-green: #81c784;
+            --beige: #f5f5dc;
+            --cream: #fffaf0;
+            --text-dark: #333;
+            --text-light: #666;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            background-color: var(--cream);
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--dark-green);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-left: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--dark-green);
+        }
+
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Sidebar for mobile */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -300px;
+            width: 250px;
+            height: 100vh;
+            background-color: var(--beige);
+            z-index: 101;
+            transition: left 0.3s ease;
+            padding: 2rem;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .sidebar-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .sidebar-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 1.1rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            min-height: 100vh;
+            padding-top: 80px;
+        }
+
+        .hero-image, .hero-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image {
+            background-color: var(--soft-green);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-content {
+            flex-direction: column;
+            padding: 2rem;
+            background-color: var(--beige);
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-green);
+            text-align: center;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            background-color: var(--dark-green);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(129, 199, 132, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--earth-green);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(129, 199, 132, 0.4);
+        }
+
+        /* Benefits Section */
+        .benefits {
+            padding: 5rem 5%;
+            background-color: var(--cream);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark-green);
+        }
+
+        .benefits-container {
+            display: flex;
+            gap: 2rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .benefits-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .benefits-container::-webkit-scrollbar-track {
+            background: var(--beige);
+            border-radius: 10px;
+        }
+
+        .benefits-container::-webkit-scrollbar-thumb {
+            background: var(--earth-green);
+            border-radius: 10px;
+        }
+
+        .benefit-card {
+            min-width: 300px;
+            scroll-snap-align: start;
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .benefit-icon {
+            font-size: 3rem;
+            color: var(--dark-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .benefit-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 5rem 5%;
+            background: linear-gradient(to bottom, var(--beige), var(--cream));
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-left: 1rem;
+            border: 3px solid var(--earth-green);
+        }
+
+        .testimonial-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .testimonial-role {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .testimonial-quote {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-style: italic;
+            position: relative;
+        }
+
+        .testimonial-quote::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--earth-green);
+            opacity: 0.3;
+            position: absolute;
+            top: -20px;
+            right: -10px;
+        }
+
+        /* Products */
+        .products {
+            padding: 5rem 5%;
+            background-color: var(--cream);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .product-desc {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-weight: 700;
+            color: var(--dark-green);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .quick-view {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background-color: var(--beige);
+            color: var(--text-dark);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .quick-view:hover {
+            background-color: var(--earth-green);
+            color: white;
+        }
+
+        /* Sustainability */
+        .sustainability {
+            padding: 5rem 5%;
+            background: linear-gradient(to bottom, var(--cream), var(--soft-green));
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--earth-green);
+            top: 0;
+            bottom: 0;
+            right: 50%;
+            margin-right: -3px;
+            border-radius: 10px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border: 4px solid var(--dark-green);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .right {
+            right: 0;
+        }
+
+        .left {
+            right: 50%;
+        }
+
+        .right::after {
+            left: -12px;
+        }
+
+        .left::after {
+            right: -12px;
+        }
+
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .timeline-icon {
+            font-size: 1.5rem;
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content h3 {
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .timeline-content p {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* Contact */
+        .contact {
+            padding: 5rem 5%;
+            background-color: var(--beige);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-title {
+            font-size: 2rem;
+            color: var(--dark-green);
+            margin-bottom: 1rem;
+        }
+
+        .contact-text {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background-color: white;
+            border-radius: 50%;
+            color: var(--dark-green);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-link:hover {
+            background-color: var(--dark-green);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--soft-green);
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--dark-green);
+        }
+
+        .copyright {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+            }
+            
+            .hero-image, .hero-content {
+                min-height: 50vh;
+            }
+
+            .timeline::after {
+                right: 31px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-right: 70px;
+                padding-left: 25px;
+            }
+
+            .timeline-item::after {
+                right: 18px;
+            }
+
+            .right::after, .left::after {
+                right: 18px;
+            }
+
+            .left {
+                right: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">
+            <i class="fas fa-leaf"></i>
+            بورشين
+        </div>
+        <div class="nav-links">
+            <a href="#home">الرئيسية</a>
+            <a href="#benefits">المميزات</a>
+            <a href="#testimonials">آراء العملاء</a>
+            <a href="#products">المنتجات</a>
+            <a href="#sustainability">قصتنا</a>
+            <a href="#contact">اتصل بنا</a>
+        </div>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Mobile Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-close">
+            <i class="fas fa-times"></i>
+        </div>
+        <div class="sidebar-links">
+            <a href="#home">الرئيسية</a>
+            <a href="#benefits">المميزات</a>
+            <a href="#testimonials">آراء العملاء</a>
+            <a href="#products">المنتجات</a>
+            <a href="#sustainability">قصتنا</a>
+            <a href="#contact">اتصل بنا</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-image">
+            <img src="How To Make Herbal Hydrosols.jpg" alt="منتج العناية بالبشرة العضوي">
+        </div>
+        <div class="hero-content">
+            <h1>نقاء محلي طبيعي.</h1>
+            <p>اكتشف قوة الطبيعة مع منتجات العناية بالبشرة العضوية لدينا، المصنوعة من مكونات محلية لتحصل على بشرة مشرقة.</p>
+            <a href="#contact" class="btn">تسوق الآن</a>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <h2 class="section-title">لماذا تختار بورشين؟</h2>
+        <div class="benefits-container">
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3>طبيعي 100%</h3>
+                <p>تحتوي منتجاتنا على مكونات طبيعية فقط، خالية من الإضافات الاصطناعية والمواد الكيميائية الضارة.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-globe-europe"></i>
+                </div>
+                <h3>صديق للبيئة</h3>
+                <p>نحن ملتزمون بالاستدامة، من التوريد إلى التغليف، لتقليل تأثيرنا البيئي.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-hand-holding-heart"></i>
+                </div>
+                <h3>مصادر محلية</h3>
+                <p>جميع المكونات مصدرها مزارعون ومنتجون محليون، لدعم مجتمعنا.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <h3>بدون مواد كيميائية ضارة</h3>
+                <p>خالية من البارابين والكبريتات والفثالات وغيرها من المكونات السامة الموجودة عادة في مستحضرات العناية بالبشرة.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>خالي من القسوة</h3>
+                <p>نحن لا نختبر على الحيوانات ونحمل شهادة Leaping Bunny للممارسات الأخلاقية.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <h2 class="section-title">آراء عملائنا</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="سارة ج." class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-name">سارة ج.</div>
+                        <div class="testimonial-role">عميلة دائمة</div>
+                    </div>
+                </div>
+                <p class="testimonial-quote">عانيت من بشرة حساسة لسنوات، لكن منتجات بورشين غيرت بشرتي تمامًا. السيروم المهدئ غير حياتي!</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="إيما ل." class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-name">إيما ل.</div>
+                        <div class="testimonial-role">عميلة لأول مرة</div>
+                    </div>
+                </div>
+                <p class="testimonial-quote">المرطب يمتص جيدًا جدًا ورائحته كالمشي في الغابة. لم أشعر قط ببشرتي أكثر تغذية.</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-header">
+                    <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="مايكل ت." class="testimonial-avatar">
+                    <div>
+                        <div class="testimonial-name">مايكل ت.</div>
+                        <div class="testimonial-role">مهتم بالعناية بالبشرة</div>
+                    </div>
+                </div>
+                <p class="testimonial-quote">كشخص يهتم بصحة البشرة والبيئة، بورشين تفي بكل التوقعات. التغليف مبتكر وصديق للبيئة.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <h2 class="section-title">الأكثر مبيعًا</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="NºGlass The Cream.jpg" alt="مرطب مرطب" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title"> مرطب</h3>
+                    <p class="product-desc">يغذي بعمق بزبدة الشيا العضوية والألوفيرا لترطيب لمدة 24 ساعة.</p>
+                    <div class="product-price">128 ر.س</div>
+                    
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="ff3b3c06-401e-45f3-be4c-2e7ffd0f8726.jpg" alt="سيروم إشراق" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">سيروم إشراق</h3>
+                    <p class="product-desc">سيروم غني بفيتامين سي يضيء البشرة ويوحد لونها بمكونات نباتية طبيعية.</p>
+                    <div class="product-price">156 ر.س</div>
+                    
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="DIY Fabric Softener with Vinegar and Essential Oils.jpg" alt="زيت تنظيف" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">زيت تنظيف</h3>
+                    <p class="product-desc">منظف لطيف وفعال يزيل الشوائب دون تجريد البشرة من ترطيبها.</p>
+                    <div class="product-price">110 ر.س</div>
+                    
+                </div>
+            </div>
+            <div class="product-card">
+                <img src="9f03d88e-f1ad-428a-af8b-aab19d87e2cc.jpg" alt="كريم ليلي" class="product-image">
+                <div class="product-info">
+                    <h3 class="product-title">كريم ليلي</h3>
+                    <p class="product-desc">إصلاح وتجديد البشرة أثناء الليل مع هذا الكريم الغني بالبابونج والخزامى.</p>
+                    <div class="product-price">147 ر.س</div>
+                   
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sustainability -->
+    <section class="sustainability" id="sustainability">
+        <h2 class="section-title">رحلتنا نحو الاستدامة</h2>
+        <div class="timeline">
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <div class="timeline-icon">
+                        <i class="fas fa-search-location"></i>
+                    </div>
+                    <h3>توريد أخلاقي</h3>
+                    <p>نعمل مع مزارعين عضويين محليين يشاركوننا التزامنا بالزراعة المستدامة والأجور العادلة.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <div class="timeline-icon">
+                        <i class="fas fa-mortar-pestle"></i>
+                    </div>
+                    <h3>إنتاج دفعات صغيرة</h3>
+                    <p>كل منتج يصنع على دفعات صغيرة لضمان الجودة وتقليل النفايات في عملية الإنتاج.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <div class="timeline-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <h3>تغليف صديق للبيئة</h3>
+                    <p>عبواتنا مصنوعة من الزجاج المعاد تدويره ومواد قابلة للتحلل، مع الحد الأدنى من استخدام البلاستيك.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <div class="timeline-icon">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>شحن محايد للكربون</h3>
+                    <p>نعوض جميع انبعاثات الشحن ونستخدم مواد تغليف مستدامة للتوصيلات.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">تواصل معنا</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3 class="contact-title">لنتواصل</h3>
+                <p class="contact-text">هل لديك أسئلة عن منتجاتنا أو ترغب في تقديم طلب؟ تواصل معنا عبر أي من هذه القنوات.</p>
+                <p class="contact-text"><i class="fas fa-envelope"></i> hello@pureskin.com</p>
+                <p class="contact-text"><i class="fas fa-phone"></i> 966551234567+</p>
+                <p class="contact-text"><i class="fas fa-map-marker-alt"></i> 123 شارع الأخضر، المدينة</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-pinterest"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="contact-title">عن بورشين</h3>
+                <p class="contact-text">تأسست بورشين عام 2018 كتجربة مطبخ صغيرة ونمت لتصبح شركة ذات رسالة. نؤمن بقوة الطبيعة في التغذية والشفاء، وملتزمون بتقديم حلول العناية بالبشرة الأكثر نقاءً مع حماية كوكبنا.</p>
+                <p class="contact-text">جميع منتجاتنا تصنع يدويًا بحب في استوديو يعمل بالطاقة الشمسية، ونتبرع بـ5% من الأرباح لمبادرات الحفاظ على البيئة.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-links">
+            <a href="#home">الرئيسية</a>
+            <a href="#benefits">المميزات</a>
+            <a href="#testimonials">آراء العملاء</a>
+            <a href="#products">المنتجات</a>
+            <a href="#sustainability">قصتنا</a>
+            <a href="#contact">اتصل بنا</a>
+            <a href="#">سياسة الخصوصية</a>
+            <a href="#">شروط الخدمة</a>
+        </div>
+        <p class="copyright">© 2023 بورشين. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        const sidebarClose = document.querySelector('.sidebar-close');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.add('active');
+        });
+
+        sidebarClose.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        // Close sidebar when clicking on a link
+        const sidebarLinks = document.querySelectorAll('.sidebar-links a');
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                sidebar.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Animation on scroll
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.benefit-card, .testimonial-card, .product-card, .timeline-item');
+            
+            elements.forEach(element => {
+                const elementPosition = element.getBoundingClientRect().top;
+                const screenPosition = window.innerHeight / 1.2;
+                
+                if (elementPosition < screenPosition) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Set initial state for animated elements
+        window.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.benefit-card, .testimonial-card, .product-card, .timeline-item');
+            
+            elements.forEach(element => {
+                element.style.opacity = '0';
+                element.style.transform = 'translateY(20px)';
+                element.style.transition = 'all 0.6s ease';
+            });
+            
+            // Trigger first check
+            animateOnScroll();
+        });
+
+        // Listen for scroll events
+        window.addEventListener('scroll', animateOnScroll);
+    </script>
+</body>
+</html>
